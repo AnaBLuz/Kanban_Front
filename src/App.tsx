@@ -1,11 +1,9 @@
-
-import './App.css'
-
+import FullScreen from "./components/FullScreen"
 function App() {
 
   return (
     <>
-      <h1>KANBAN</h1>
+      <FullScreen />
     </>
   )
 }
