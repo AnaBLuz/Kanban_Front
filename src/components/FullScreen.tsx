@@ -10,7 +10,7 @@ export default function FullScreen() {
          <CardContainer>
            <ToDo>
            <h3>Pendente</h3>
-           <div><Pendente /></div>
+           <Pendente />
            </ToDo>
            <ToDo><h3>Em Andamento</h3></ToDo>
            <ToDo><h3>Em Teste</h3></ToDo>
@@ -39,7 +39,7 @@ const CardContainer = styled.div`
 
 const ToDo = styled.div`
     width: 300px;
-    height: 500px;
+    height: 800px;
     margin-left: 30px;
     margin-right: 30px;
     margin-top: 100px;
