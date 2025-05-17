@@ -1,13 +1,17 @@
 import styled from 'styled-components';
-import Tarefa from './Tarefa';
+import NovaTarefa from './NovaTarefa';
+import Pendente from './Pendente';
 
 export default function FullScreen() {
     return (
       
       <ScreenContainer>
-         <Tarefa />
+         <NovaTarefa />
          <CardContainer>
-           <ToDo><h3>Pendente</h3></ToDo>
+           <ToDo>
+           <h3>Pendente</h3>
+           <div><Pendente /></div>
+           </ToDo>
            <ToDo><h3>Em Andamento</h3></ToDo>
            <ToDo><h3>Em Teste</h3></ToDo>
            <ToDo><h3>Finalizado</h3></ToDo>

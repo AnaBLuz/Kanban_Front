@@ -1,16 +1,22 @@
 import styled from 'styled-components';
-import { useState } from 'react';
+import {  useState } from 'react';
+import { createTask } from '../service/tarefaService';
 import diskette from "../assets/diskette.png"
 
-export default function Tarefa() {
+export default function NovaTarefa() {
     const [valor,setValor] = useState("");
 
-    const handleChange = (event) => {
+
+    const handleChange = (event:  React.ChangeEvent<HTMLInputElement>) => {
       setValor(event.target.value)
     };
 
     function salvaTarefa(){
-      
+      createTask({
+        title: 'Nova Tarefa',
+        description: valor,
+        status: 'PENDING',
+      })
       setValor("")
     }
     
