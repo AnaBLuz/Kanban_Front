@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import NovaTarefa from './NovaTarefa';
-import Pendente from './Pendente';
+import Tarefas from './Tarefas';
 
 export default function FullScreen() {
     return (
@@ -9,12 +9,21 @@ export default function FullScreen() {
          <NovaTarefa />
          <CardContainer>
            <ToDo>
-           <h3>Pendente</h3>
-           <Pendente />
+             <h3>Pendente</h3>
+             <Tarefas status="PENDING" />
            </ToDo>
-           <ToDo><h3>Em Andamento</h3></ToDo>
-           <ToDo><h3>Em Teste</h3></ToDo>
-           <ToDo><h3>Finalizado</h3></ToDo>
+           <ToDo>
+             <h3>Em Andamento</h3>
+             <Tarefas status="IN_PROGRESS" />
+           </ToDo>
+           <ToDo>
+             <h3>Em Teste</h3>
+             <Tarefas status="TESTING" />
+          </ToDo>
+           <ToDo>
+            <h3>Finalizado</h3>
+            <Tarefas status="DONE" />
+           </ToDo>
          </CardContainer>
       </ScreenContainer>
       

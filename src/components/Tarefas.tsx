@@ -5,15 +5,22 @@ import del from "../assets/del.png"
 import edit from "../assets/edit.png"
 import update from "../assets/update.png"
 
-export default function Pendente(){
+type TarefasProps = {
+  status: string;
+};
+
+
+export default function Tarefas({ status }: TarefasProps){
     const [tasks, setTasks] = useState<any[]>([]);
 
+    const loadTasks = async () => {
+      const res = await getTasksByStatus(status);
+      setTasks(res.data);
+    };
+  
     useEffect(() => {
-        getTasksByStatus('PENDING').then((res) => {
-          console.log("Dados recebidos:", res.data);
-          setTasks(res.data);
-        });
-      }, []);    
+      loadTasks();
+    }, [status]);   
 
     return(
     
