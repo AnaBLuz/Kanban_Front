@@ -1,6 +1,13 @@
 # Kanban
 
 Aplicação web voltada para organização de tarefas por meio da metodologia ágil kanban.
+
+# Demo
+```bash
+https://kanban-front-g9f2c6smf-anabluzs-projects.vercel.app/
+```
+
+
 ## 🚀 Tecnologias utilizadas
 
 - [React](https://reactjs.org/)
