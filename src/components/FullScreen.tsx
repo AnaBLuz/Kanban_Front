@@ -3,8 +3,9 @@ import NovaTarefa from './NovaTarefa';
 import Tarefas from './Tarefas';
 
 export default function FullScreen() {
-    return (
-      
+
+
+    return (     
       <ScreenContainer>
          <NovaTarefa />
          <CardContainer>

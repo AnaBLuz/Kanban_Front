@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3000'; 
+const API_URL = 'https://kanban-backend-lht3.onrender.com'; 
 
 export const getTasks = () => axios.get(`${API_URL}/tasks`);
 
