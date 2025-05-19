@@ -1,29 +1,32 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import NovaTarefa from './NovaTarefa';
 import Tarefas from './Tarefas';
 
 export default function FullScreen() {
 
+  const [reload, setReload] = useState(false);
+  const triggerReload = () => setReload(!reload);
 
     return (     
       <ScreenContainer>
-         <NovaTarefa />
+         <NovaTarefa tarefaCriada={triggerReload}/>
          <CardContainer>
            <ToDo>
              <h3>Pendente</h3>
-             <Tarefas status="PENDING" />
+             <Tarefas status="PENDING" reload={reload} onChange={triggerReload}/>
            </ToDo>
            <ToDo>
              <h3>Em Andamento</h3>
-             <Tarefas status="IN_PROGRESS" />
+             <Tarefas status="IN_PROGRESS" reload={reload} onChange={triggerReload}/>
            </ToDo>
            <ToDo>
              <h3>Em Teste</h3>
-             <Tarefas status="TESTING" />
+             <Tarefas status="TESTING" reload={reload} onChange={triggerReload}/>
           </ToDo>
            <ToDo>
             <h3>Finalizado</h3>
-            <Tarefas status="DONE" />
+            <Tarefas status="DONE" reload={reload} onChange={triggerReload}/>
            </ToDo>
          </CardContainer>
       </ScreenContainer>

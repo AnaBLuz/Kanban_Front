@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getTasksByStatus } from '../service/tarefaService';
+import { getTasksByStatus, deleteTask, updateTask } from '../service/tarefaService';
 import styled from 'styled-components';
 import del from "../assets/del.png"
 import edit from "../assets/edit.png"
@@ -7,20 +7,43 @@ import update from "../assets/update.png"
 
 type TarefasProps = {
   status: string;
+  reload: boolean;
+  onChange: () => void;
 };
 
 
-export default function Tarefas({ status }: TarefasProps){
+export default function Tarefas({ status, reload, onChange }: TarefasProps){
     const [tasks, setTasks] = useState<any[]>([]);
 
-    const loadTasks = async () => {
+    const carregaTarefas = async () => {
       const res = await getTasksByStatus(status);
       setTasks(res.data);
     };
   
     useEffect(() => {
-      loadTasks();
-    }, [status]);   
+      carregaTarefas();
+    }, [status,reload]);   
+
+    const deletaTarefa = async (id: number) => {
+      await deleteTask(id);
+      carregaTarefas();
+      onChange();
+    };
+
+    const atualizaStatus = async (task: any) => {
+      const proxStatus = carregaProxStatus(task.status);
+      if (proxStatus !== task.status) {
+        await updateTask(task.id, { ...task, status: proxStatus });
+        carregaTarefas();
+        onChange();
+      }
+    };
+  
+    const carregaProxStatus = (atual: string) => {
+      const statusOrder = ['PENDING', 'IN_PROGRESS', 'TESTING', 'DONE'];
+      const idx = statusOrder.indexOf(atual);
+      return idx < statusOrder.length - 1 ? statusOrder[idx + 1] : atual;
+    };
 
     return(
     
@@ -29,9 +52,9 @@ export default function Tarefas({ status }: TarefasProps){
           <Card key={task.id}>
           <p>{task.description}</p>
           <Acoes>
-          <img src={del}  />
+          <img src={del}  onClick={() => deletaTarefa(task.id)} />
           <img src={edit}  />
-          <img src={update}  />
+          <img src={update} onClick={() => atualizaStatus(task)} />
           </Acoes>
         </Card>
         ))}
@@ -41,7 +64,7 @@ export default function Tarefas({ status }: TarefasProps){
 }
 
 const Card = styled.div` 
-width: 90%;
+width: 200px;
 height: 100px;
 border-radius: 24px;
 background-color: orange;
@@ -58,6 +81,7 @@ const Acoes = styled.div`
   img{
     height: 20px;
     width:20px;
+    cursor:pointer;
   }
 `
 

@@ -3,7 +3,11 @@ import {  useState } from 'react';
 import { createTask } from '../service/tarefaService';
 import diskette from "../assets/diskette.png"
 
-export default function NovaTarefa() {
+type NovaTarefaProps = {
+  tarefaCriada: () => void;
+};
+
+export default function NovaTarefa({ tarefaCriada }: NovaTarefaProps) {
     const [valor,setValor] = useState("");
 
 
@@ -11,13 +15,14 @@ export default function NovaTarefa() {
       setValor(event.target.value)
     };
 
-    function salvaTarefa(){
-      createTask({
+   async function salvaTarefa(){
+     await createTask({
         title: 'Nova Tarefa',
         description: valor,
         status: 'PENDING',
       })
       setValor("")
+      tarefaCriada(); //dispara o reload
     }
     
 
