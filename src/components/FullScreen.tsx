@@ -57,7 +57,7 @@ const ToDo = styled.div`
     margin-right: 30px;
     margin-top: 100px;
     background-color: green;
-    border-radius: 24px;
+    border-radius: 25px;
     color: white;
     font-weight: bold;
     display:flex;
