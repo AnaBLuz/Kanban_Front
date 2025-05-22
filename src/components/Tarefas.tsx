@@ -45,15 +45,49 @@ export default function Tarefas({ status, reload, onChange }: TarefasProps){
       return idx < statusOrder.length - 1 ? statusOrder[idx + 1] : atual;
     };
 
+    const [idTarefa, setIdtarefa] = useState<number | null>(null);
+    const [newDescription, setNewDescription] = useState("");
+    
+    const editar = (task: any) => {
+      setIdtarefa(task.id);
+      setNewDescription(task.description);
+    };
+    
+    const cancelaEdit = () => {
+      setIdtarefa(null);
+      setNewDescription("");
+    };
+    
+    const salvaEdit = async (task: any) => {
+      await updateTask(task.id, { ...task, description: newDescription });
+      setIdtarefa(null);
+      setNewDescription("");
+      carregaTarefas(); 
+    };
+
+
+
+
     return(
     
        <ul>
         {tasks.map((task) => (
           <Card key={task.id}>
-          <p>{task.description}</p>
+    {idTarefa === task.id ? (
+      <>
+       <input
+          value={newDescription}
+          onChange={(e) => setNewDescription(e.target.value)}
+           />
+      <Buttons>
+        <button onClick={() => salvaEdit(task)}>Salvar</button>
+        <button onClick={cancelaEdit}>Cancelar</button>
+      </Buttons>
+      </>
+) : ( <p>{task.description}</p>)}
           <Acoes>
           <img src={del}  onClick={() => deletaTarefa(task.id)} />
-          <img src={edit}  />
+          <img src={edit} onClick={() => editar(task)} />
           <img src={update} onClick={() => atualizaStatus(task)} />
           </Acoes>
         </Card>
@@ -71,9 +105,26 @@ background-color: orange;
 display:flex;
 flex-direction:column;
 align-items:center;
-margin-bottom: 30px
-
+margin-bottom: 30px;
+input{
+    width:80%;
+    height: 50%;
+    border-radius: 24px;
+    background-color: orange;
+    
+}
+  
 `
+const Buttons = styled.div`
+  width:70%;
+  display:flex;
+  justify-content:space-between;
+  button{
+    border-radius: 24px;
+    background-color: orange;
+  }
+`
+
 const Acoes = styled.div`
   width: 80%;
   display:flex;
